@@ -32,6 +32,10 @@ function randomColorIfApplicable(node) {
         // Look for fills on node types that have fills.
         // An alternative would be to do `if ('fills' in node) { ... }
         switch (node.type) {
+            case "GROUP": {
+                figma.notify("Doesn't support groups");
+                break;
+            }
             case "FRAME": {
                 const fills = clone(node.backgrounds);
                 node.backgrounds = fillColor(fills);
