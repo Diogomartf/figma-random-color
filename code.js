@@ -14,6 +14,12 @@ function clone(val) {
     return JSON.parse(JSON.stringify(val));
 }
 function fillColor(fills) {
+    fills[0].color.r = Math.random();
+    fills[0].color.g = Math.random();
+    fills[0].color.b = Math.random();
+    return fills;
+}
+function fillFrameColor(fills) {
     console.log("fills:", fills);
     fills[0].color.r = Math.random();
     fills[0].color.g = Math.random();
@@ -22,9 +28,15 @@ function fillColor(fills) {
 }
 function randomColorIfApplicable(node) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log("YO", node);
         // Look for fills on node types that have fills.
         // An alternative would be to do `if ('fills' in node) { ... }
         switch (node.type) {
+            case "FRAME": {
+                const fills = clone(node.backgrounds);
+                node.backgrounds = fillColor(fills);
+                break;
+            }
             case "RECTANGLE":
             case "ELLIPSE":
             case "POLYGON":
